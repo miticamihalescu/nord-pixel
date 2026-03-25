@@ -13,7 +13,6 @@
 <meta property="og:description" content="Creăm site-uri profesionale pentru afaceri locale din zona Rădăuți și Suceava. Prețuri clare, livrare rapidă.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ro_RO">
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Mono:wght@400;700&display=swap');
 
@@ -337,24 +336,6 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   opacity: 1; transform: translateX(0);
 }
 
-/* ============ MODEL 3D BACKGROUND ============ */
-#model3d-bg {
-  position: fixed;
-  left: 50%; transform: translateX(-50%);
-  width: 600px; height: 500px;
-  z-index: 5;
-  pointer-events: none;
-  opacity: 0.35;
-  transition: top 0.1s linear;
-  top: 80px;
-}
-#model3d-bg model-viewer {
-  width: 100%; height: 100%;
-  background: transparent;
-}
-@media (max-width: 768px) {
-  #model3d-bg { width: 100%; height: 320px; }
-}
 
 /* ============ DESPRE MINE ============ */
 .about-content {
@@ -807,20 +788,6 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
     </div>
   </div>
 </section>
-
-<!-- MODEL 3D BACKGROUND -->
-<div id="model3d-bg">
-  <model-viewer
-    src="model.glb"
-    alt="Nord Pixel 3D Model"
-    auto-rotate
-    rotation-per-second="20deg"
-    environment-image="neutral"
-    exposure="1.5"
-    shadow-intensity="0"
-    loading="lazy"
-  ></model-viewer>
-</div>
 
 <!-- MIZA -->
 <section class="section section-darker" id="miza" style="padding: 70px 0;">
@@ -1392,30 +1359,6 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
     }, 1500);
   });
 
-  // ===== MODEL 3D SCROLL PARALLAX =====
-  const modelBg = document.getElementById('model3d-bg');
-  if (modelBg) {
-    const modelH = 500;
-    const startTop = 80; // vârful muntelui — lângă hero
-
-    function updateModelPos() {
-      const contactEl = document.getElementById('contact');
-      if (!contactEl) return;
-
-      const contactTop = contactEl.getBoundingClientRect().top + window.scrollY;
-      const scrollY = window.scrollY;
-      const maxTravel = window.innerHeight - modelH - startTop;
-
-      const progress = Math.min(Math.max(scrollY / contactTop, 0), 1);
-      const newTop = startTop + progress * maxTravel;
-
-      modelBg.style.top = newTop + 'px';
-    }
-
-    window.addEventListener('scroll', updateModelPos, { passive: true });
-    window.addEventListener('resize', updateModelPos);
-    updateModelPos();
-  }
 
   // ===== PIXEL PARTICLES =====
   function createPixels(containerId, count) {
