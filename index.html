@@ -1426,7 +1426,15 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
             <input type="email" name="email" placeholder="Adresa de email" required>
           </div>
           <div class="form-group">
-            <input type="text" name="subiect" placeholder="Despre ce este vorba?">
+            <select name="subiect" required style="background:var(--bg-secondary);color:var(--text-primary);border:1px solid rgba(148,163,184,0.15);border-radius:8px;padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:1rem;width:100%;cursor:pointer;appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 16px center;">
+              <option value="" disabled selected>Despre ce este vorba?</option>
+              <option value="Site de prezentare">Site de prezentare</option>
+              <option value="Magazin online">Magazin online</option>
+              <option value="Rezervări & programări online">Rezervări &amp; programări online</option>
+              <option value="Redesign site existent">Redesign site existent</option>
+              <option value="SEO & vizibilitate Google">SEO &amp; vizibilitate Google</option>
+              <option value="Altceva">Altceva</option>
+            </select>
           </div>
           <div class="form-group">
             <textarea name="mesaj" placeholder="Spune-ne câteva cuvinte despre afacerea ta și ce ai nevoie..." required></textarea>
