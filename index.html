@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nord Pixel — Creare Site Web Rădăuți, Suceava</title>
-<meta name="description" content="Creăm site-uri profesionale pentru afaceri din Marginea, Rădăuți și Suceava. Prețuri clare, livrare în câteva zile. Cere ofertă gratuită!">
-<meta name="keywords" content="creare site web Suceava, web design Rădăuți, site web Marginea, site prezentare afaceri locale Suceava, creare site Marginea">
+<title>Nord Pixel — Creare Site Web Bucovina</title>
+<meta name="description" content="Creăm site-uri profesionale pentru afaceri locale din Bucovina. Prețuri clare, livrare în câteva zile. Cere ofertă gratuită!">
+<meta name="keywords" content="creare site web Bucovina, web design Bucovina, site web afaceri locale Bucovina, creare site Suceava, web design Suceava">
 <meta name="geo.region" content="RO-SV">
-<meta name="geo.placename" content="Marginea, Rădăuți, Suceava">
+<meta name="geo.placename" content="Bucovina, Suceava">
 <meta name="theme-color" content="#0a0f1a">
 <link rel="canonical" href="https://nordpixel.ro/">
 <link rel="icon" type="image/png" href="/logo.png">
 <link rel="apple-touch-icon" href="/logo.png">
-<meta property="og:title" content="Nord Pixel — Creare Site Web Rădăuți, Suceava">
-<meta property="og:description" content="Creăm site-uri profesionale pentru afaceri din Marginea, Rădăuți și Suceava. Prețuri clare, livrare rapidă. Cere ofertă!">
+<meta property="og:title" content="Nord Pixel — Creare Site Web Bucovina">
+<meta property="og:description" content="Creăm site-uri profesionale pentru afaceri locale din Bucovina. Prețuri clare, livrare rapidă. Cere ofertă!">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ro_RO">
 <meta property="og:url" content="https://nordpixel.ro/">
@@ -22,7 +22,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Nord Pixel — Creare Site Web Rădăuți, Suceava">
+<meta name="twitter:title" content="Nord Pixel — Creare Site Web Bucovina">
 <meta name="twitter:description" content="Ești invizibil online. Noi schimbăm asta. Site-uri profesionale pentru afaceri locale din Bucovina.">
 <meta name="twitter:image" content="https://nordpixel.ro/whosnord.png">
 <script type="application/ld+json">
@@ -36,12 +36,12 @@
       "url": "https://nordpixel.ro/",
       "logo": "https://nordpixel.ro/logo.png",
       "image": "https://nordpixel.ro/whosnord.png",
-      "description": "Agenție web design din Marginea, județul Suceava. Creăm site-uri profesionale pentru afaceri locale din Marginea, Rădăuți și Suceava.",
+      "description": "Agenție web design din Bucovina. Creăm site-uri profesionale pentru afaceri locale din Bucovina.",
       "telephone": "+40747910087",
       "email": "contact@nordpixel.ro",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Marginea",
+        "addressLocality": "Bucovina",
         "addressRegion": "Suceava",
         "addressCountry": "RO"
       },
@@ -51,9 +51,8 @@
         "longitude": 25.8325
       },
       "areaServed": [
-        {"@type": "City", "name": "Marginea"},
-        {"@type": "City", "name": "Rădăuți"},
-        {"@type": "City", "name": "Suceava"}
+        {"@type": "AdministrativeArea", "name": "Bucovina"},
+        {"@type": "AdministrativeArea", "name": "județul Suceava"}
       ],
       "openingHoursSpecification": [
         {
@@ -592,7 +591,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 /* ============ PRETURI ============ */
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   align-items: start;
 }
@@ -689,8 +688,31 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   color: var(--text-secondary); font-size: 0.88rem;
 }
 .pricing-note strong { color: var(--text-primary); }
+.maintenance-card {
+  margin-top: 32px;
+  background: rgba(15,23,36,0.6);
+  border: 1px solid rgba(148,163,184,0.08);
+  border-radius: 16px;
+  padding: 28px 36px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.maintenance-card:hover {
+  border-color: rgba(56,189,248,0.25);
+  box-shadow: 0 0 30px rgba(56,189,248,0.08), 0 20px 40px rgba(0,0,0,0.3);
+  transform: translateY(-4px);
+}
+.maintenance-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+@media (max-width: 600px) {
+  .maintenance-inner { flex-direction: column; align-items: flex-start; }
+  .maintenance-inner .btn-pricing { width: 100% !important; text-align: center; }
+}
 
-@media (max-width: 1024px) {
+@media (max-width: 640px) {
   .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
   .pricing-card.featured { transform: none; }
 }
@@ -808,11 +830,79 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .stats { flex-direction: column; gap: 24px; }
   .section { padding: 60px 0; }
+
+  /* Animații orizontale → verticale pe mobil (flex stacked) */
+  .reveal-left {
+    transform: translateY(40px);
+  }
+  .reveal-left.visible {
+    transform: translateY(0);
+  }
+  .reveal-right {
+    transform: translateY(40px);
+  }
+  .reveal-right.visible {
+    transform: translateY(0);
+  }
+
+  /* Imaginea din secțiunea Despre — nu depăși ecranul */
+  .about-content > div:first-child img {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Logo footer mai mic */
+  .footer-logo img { width: 140px !important; }
+
+  /* Cookie banner pe un singur rând vertical */
+  .cookie-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+  .cookie-accept { width: 100%; }
+
+  /* Hero trust badges — mai mici */
+  .hero-badge { font-size: 0.78rem; }
 }
 
 @media (max-width: 480px) {
   .hero-buttons { flex-direction: column; }
   .btn-primary, .btn-outline { text-align: center; width: 100%; }
+  .section { padding: 48px 0; }
+  .hero-content .subheadline { font-size: 1rem; }
+  .section-header { margin-bottom: 40px; }
+  .pricing-price { font-size: 2rem; }
+  .about-avatar { width: 120px; height: 120px; min-width: 120px; font-size: 2rem; }
+}
+
+/* Safe area insets pentru iPhone cu notch / Dynamic Island */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .footer {
+    padding-bottom: calc(32px + env(safe-area-inset-bottom));
+  }
+  .cookie-banner {
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+  .whatsapp-btn {
+    bottom: calc(100px + env(safe-area-inset-bottom));
+    right: calc(28px + env(safe-area-inset-right));
+  }
+}
+
+/* Reduced motion pentru utilizatori care preferă animații reduse */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right {
+    opacity: 1; transform: none;
+    transition: none;
+  }
+  .hero-image, .hero-content h1,
+  .hero-content .subheadline, .hero-buttons, .hero-trust {
+    animation: none;
+    opacity: 1; transform: none;
+  }
+  @keyframes heroFloat { 0%, 100% { transform: none; } }
 }
 
 /* ============ FAQ ============ */
@@ -943,7 +1033,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   <div class="container">
     <div class="hero-content">
       <h1>Clienții tăi te caută pe Google. <span class="highlight">Ești acolo?</span><span class="hero-cursor"></span></h1>
-      <p class="subheadline">Construim site-uri profesionale pentru afaceri din Marginea, Rădăuți și Suceava.</p>
+      <p class="subheadline">Construim site-uri profesionale pentru afaceri locale din Bucovina.</p>
       <p style="font-size:0.95rem; color:#475569; margin-bottom:24px; font-style:italic;">Ești invizibil online. Noi schimbăm asta.</p>
       <div class="hero-buttons">
         <a href="#contact" class="btn-primary">Vreau un site →</a>
@@ -1165,7 +1255,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 
       <!-- Card 2: Auto Marnik Paint -->
       <div class="portfolio-card">
-        <a href="https://rough-mud-72bc.miticamihalescu.workers.dev/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0d0a0a; display:block; cursor:pointer;">
+        <a href="https://automarnik.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0d0a0a; display:block; cursor:pointer;">
           <img src="marnikpaint.jpg" alt="Auto Marnik Paint" style="width:100%; height:100%; object-fit:cover; display:block;">
         </a>
         <div class="portfolio-info">
@@ -1176,7 +1266,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
             <span class="tag">Vopsitorie</span>
             <span class="tag">Tinichigerie</span>
           </div>
-          <a href="https://rough-mud-72bc.miticamihalescu.workers.dev/" target="_blank" rel="noopener" class="portfolio-link">
+          <a href="https://automarnik.ro/" target="_blank" rel="noopener" class="portfolio-link">
             Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -1235,7 +1325,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       <div class="service-card reveal" style="text-align: center; border-color: rgba(74,222,128,0.2);">
         <div style="font-size: 2.2rem; margin-bottom: 16px;">📱</div>
         <h3 style="margin-bottom: 12px; color: #4ade80;">Apari pe Google</h3>
-        <p>Clienții din Marginea, Rădăuți și Suceava te găsesc exact când au nevoie de ce oferi tu.</p>
+        <p>Clienții din toată Bucovina te găsesc exact când au nevoie de ce oferi tu.</p>
       </div>
       <div class="service-card reveal" style="text-align: center; border-color: rgba(74,222,128,0.2);">
         <div style="font-size: 2.2rem; margin-bottom: 16px;">📞</div>
@@ -1271,6 +1361,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
           <li>Optimizat pentru mobil</li>
           <li>Formularul de contact</li>
           <li>Domeniu & hosting inclus (1 an)</li>
+          <li>Google Business Profile configurat</li>
           <li class="off">Optimizare SEO</li>
           <li class="off">Magazin online</li>
         </ul>
@@ -1290,30 +1381,28 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
           <li>Formularul de contact</li>
           <li>Domeniu & hosting inclus (1 an)</li>
           <li>Optimizare SEO de bază</li>
+          <li>Google Business Profile configurat</li>
+          <li>Google Analytics instalat</li>
           <li class="off">Magazin online</li>
         </ul>
         <a href="#contact" class="btn-pricing btn-pricing-solid">Vreau asta</a>
       </div>
 
-      <!-- Plan 3: Premium -->
-      <div class="pricing-card reveal">
-        <div class="pricing-name">Premium</div>
-        <div class="pricing-price">3.799 <span>RON</span></div>
-        <p class="pricing-desc">Soluție completă cu magazin online și suport extins pentru afaceri ambițioase.</p>
-        <ul class="pricing-features">
-          <li>Site complet (pagini nelimitate)</li>
-          <li>Design personalizat pe brandul tău</li>
-          <li>Optimizat pentru mobil</li>
-          <li>Formularul de contact</li>
-          <li>Domeniu & hosting inclus (1 an)</li>
-          <li>Optimizare SEO avansată</li>
-          <li>Magazin online</li>
-        </ul>
-        <a href="#contact" class="btn-pricing btn-pricing-outline">Vreau asta</a>
-      </div>
-
     </div>
-    <p class="pricing-note reveal">Toate prețurile sunt <strong>unice, fără abonament lunar</strong>. Ai nevoie de ceva special? <a href="#contact" style="color:var(--accent-teal); text-decoration:none;">Hai să discutăm.</a></p>
+
+    <!-- Mentenanță lunară -->
+    <div class="maintenance-card reveal">
+      <div class="maintenance-inner">
+        <div>
+          <div class="pricing-name" style="margin-bottom:6px;">Mentenanță Lunară</div>
+          <div class="pricing-price" style="font-size:1.8rem; margin-bottom:4px;">60€ <span>/ lună</span></div>
+          <p style="color:var(--text-secondary); font-size:0.9rem; margin:0;">Rămân partenerul tău și după livrare — actualizări, backup, suport tehnic.</p>
+        </div>
+        <a href="#contact" class="btn-pricing btn-pricing-outline" style="width:auto; padding:11px 28px; white-space:nowrap;">Află mai multe</a>
+      </div>
+    </div>
+
+    <p class="pricing-note reveal">Toate prețurile sunt <strong>unice</strong>. Rămân partenerul tău și după livrare. <a href="#contact" style="color:var(--accent-teal); text-decoration:none;">Hai să discutăm.</a></p>
   </div>
 </section>
 
@@ -1397,13 +1486,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
             </div>
             <span>0747 910 087</span>
           </a>
-          <a href="mailto:contact@nordpixel.ro" class="contact-link">
-            <div class="contact-link-icon">
-              <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg>
-            </div>
-            <span>contact@nordpixel.ro</span>
-          </a>
-          <a href="https://www.instagram.com/nordpixel" target="_blank" rel="noopener" class="contact-link">
+<a href="https://www.instagram.com/nordpixel" target="_blank" rel="noopener" class="contact-link">
             <div class="contact-link-icon">
               <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
             </div>
@@ -1461,7 +1544,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       <img src="logo.png" alt="Nord Pixel" style="width:200px;height:auto;">
     </div>
     <p class="footer-tagline">Ești invizibil online. Noi schimbăm asta.</p>
-    <p style="color:rgba(148,163,184,0.5); font-size:0.8rem; margin-bottom:16px;">Marginea, județul Suceava · 0747 910 087 · contact@nordpixel.ro</p>
+    <p style="color:rgba(148,163,184,0.5); font-size:0.8rem; margin-bottom:16px;">Bucovina · 0747 910 087 · contact@nordpixel.ro</p>
     <a href="#contact" class="btn-primary" style="display: inline-block; margin-bottom: 32px;">Vreau un site pentru afacerea mea →</a>
     <p class="footer-copy">&copy; 2025 Nord Pixel. Toate drepturile rezervate.</p>
   </div>
@@ -1581,7 +1664,8 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
     statsObserver.observe(statsSection);
   }
 
-  // ===== 3D TILT ON SERVICE CARDS =====
+  // ===== 3D TILT ON SERVICE CARDS (desktop only) =====
+  if (!('ontouchstart' in window) && navigator.maxTouchPoints === 0)
   document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -1676,7 +1760,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 })();
 </script>
 
-<!-- ===== PIXEL TRAIL CURSOR ===== -->
+<!-- ===== PIXEL TRAIL CURSOR (desktop only) ===== -->
 <canvas id="pixelTrail" style="
   position:fixed; inset:0;
   pointer-events:none;
@@ -1685,6 +1769,11 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 "></canvas>
 <script>
 (function() {
+  // Dezactivat pe dispozitive touch (mobil/tabletă) — economisește baterie
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    document.getElementById('pixelTrail').style.display = 'none';
+    return;
+  }
   const canvas = document.getElementById('pixelTrail');
   const ctx = canvas.getContext('2d');
   const COLORS = ['#818cf8','#818cf8','#4ade80','#94a3b8','#818cf8','#4ade80'];
