@@ -1,18 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0f1724"/>
-      <stop offset="1" stop-color="#0a0f1a"/>
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0a0f1e"/>
     </linearGradient>
+    <radialGradient id="glow" cx="32" cy="32" r="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <rect width="64" height="64" rx="14" fill="url(#glow)"/>
   <g fill="#38bdf8">
-    <rect x="8" y="8" width="8" height="48"/>
-    <rect x="48" y="8" width="8" height="48"/>
-    <rect x="16" y="16" width="8" height="8"/>
-    <rect x="24" y="24" width="8" height="8"/>
-    <rect x="32" y="32" width="8" height="8"/>
-    <rect x="40" y="40" width="8" height="8"/>
+    <rect x="10" y="10" width="8" height="8" rx="1.5"/>
+    <rect x="46" y="10" width="8" height="8" rx="1.5"/>
+    <rect x="10" y="19" width="8" height="8" rx="1.5"/>
+    <rect x="19" y="19" width="8" height="8" rx="1.5"/>
+    <rect x="46" y="19" width="8" height="8" rx="1.5"/>
+    <rect x="10" y="28" width="8" height="8" rx="1.5"/>
+    <rect x="28" y="28" width="8" height="8" rx="1.5"/>
+    <rect x="46" y="28" width="8" height="8" rx="1.5"/>
+    <rect x="10" y="37" width="8" height="8" rx="1.5"/>
+    <rect x="37" y="37" width="8" height="8" rx="1.5"/>
+    <rect x="46" y="37" width="8" height="8" rx="1.5"/>
+    <rect x="10" y="46" width="8" height="8" rx="1.5"/>
+    <rect x="46" y="46" width="8" height="8" rx="1.5"/>
   </g>
-  <rect x="48" y="8" width="8" height="8" fill="#4ade80"/>
+  <rect x="46" y="10" width="8" height="8" rx="1.5" fill="#4ade80"/>
 </svg>
