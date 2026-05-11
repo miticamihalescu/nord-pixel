@@ -140,9 +140,11 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
 }
 .navbar.scrolled {
-  background: var(--bg-primary);
+  background: rgba(10, 15, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: 10px 0;
-  box-shadow: 0 2px 20px rgba(56,189,248,0.08);
+  box-shadow: 0 1px 0 rgba(56,189,248,0.08), 0 8px 32px rgba(0,0,0,0.3);
 }
 .navbar .container {
   display: flex; align-items: center; justify-content: space-between;
@@ -512,21 +514,44 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 }
 
 /* ============ PORTOFOLIU ============ */
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+.portfolio-carousel {
+  position: relative;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .portfolio-card {
+  position: absolute;
+  width: 400px;
   border-radius: 16px; overflow: hidden;
   background: var(--bg-secondary);
   border: 1px solid rgba(148,163,184,0.06);
-  transition: all 0.4s; position: relative;
+  will-change: transform;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s, opacity 0.6s;
+  cursor: pointer;
 }
-.portfolio-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(56,189,248,0.2);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+.portfolio-card[data-stack="0"] {
+  transform: translateX(0px) translateY(0px) rotate(0deg) scale(1);
+  z-index: 3;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  border-color: rgba(56,189,248,0.15);
+}
+.portfolio-card[data-stack="1"] {
+  transform: translateX(70px) translateY(12px) rotate(6deg) scale(0.93);
+  z-index: 2;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+.portfolio-card[data-stack="2"] {
+  transform: translateX(130px) translateY(24px) rotate(12deg) scale(0.86);
+  z-index: 1;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.portfolio-card.exiting {
+  transform: translateX(-140%) translateY(-30px) rotate(-20deg) scale(0.75) !important;
+  opacity: 0 !important;
+  z-index: 10 !important;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s !important;
 }
 .portfolio-thumb {
   height: 200px; position: relative; overflow: hidden;
@@ -534,14 +559,41 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .portfolio-thumb::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(to bottom, transparent 50%, var(--bg-secondary));
+  z-index: 1;
 }
+.portfolio-thumb img {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.portfolio-card[data-stack="0"]:hover .portfolio-thumb img {
+  transform: scale(1.08);
+}
+.portfolio-overlay {
+  position: absolute; inset: 0; z-index: 2;
+  background: rgba(10, 15, 26, 0.7);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  backdrop-filter: blur(2px);
+}
+.portfolio-card[data-stack="0"]:hover .portfolio-overlay {
+  opacity: 1;
+}
+.portfolio-overlay-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px;
+  background: var(--accent-teal); color: #0a0f1a;
+  font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700;
+  border-radius: 8px; text-decoration: none;
+  transform: translateY(10px);
+  transition: transform 0.35s ease, background 0.2s;
+}
+.portfolio-card[data-stack="0"]:hover .portfolio-overlay-btn {
+  transform: translateY(0);
+}
+.portfolio-overlay-btn:hover { background: #7dd3fc; }
 .portfolio-info { padding: 24px; }
-.portfolio-info h3 {
-  font-size: 1.2rem; margin-bottom: 8px;
-}
-.portfolio-info p {
-  color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;
-}
+.portfolio-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.portfolio-info p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px; }
 .portfolio-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
 .tag {
   font-size: 0.75rem; padding: 4px 12px;
@@ -555,6 +607,37 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   transition: gap 0.3s;
 }
 .portfolio-link:hover { gap: 12px; }
+.carousel-nav {
+  position: absolute;
+  bottom: -48px;
+  left: 0; right: 0;
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+}
+.carousel-next-btn {
+  background: none; border: 1px solid rgba(56,189,248,0.3);
+  color: var(--accent-teal); font-family: 'Space Mono', monospace;
+  font-size: 0.8rem; padding: 8px 20px; border-radius: 50px;
+  cursor: pointer; transition: all 0.3s;
+}
+.carousel-next-btn:hover {
+  background: rgba(56,189,248,0.08);
+  border-color: var(--accent-teal);
+}
+.carousel-dots { display: flex; gap: 8px; align-items: center; }
+.carousel-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(56,189,248,0.25);
+  transition: all 0.3s; cursor: pointer;
+}
+.carousel-dot.active {
+  background: var(--accent-teal);
+  width: 20px; border-radius: 3px;
+}
+.carousel-hint {
+  position: absolute; top: -32px; right: 0;
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: var(--text-secondary); opacity: 0.6;
+}
 
 /* ============ TESTIMONIALE ============ */
 .testimonials-grid {
@@ -1032,7 +1115,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   <div class="hero-shape hero-shape-3"></div>
   <div class="container">
     <div class="hero-content">
-      <h1>Clienții tăi te caută pe Google. <span class="highlight">Ești acolo?</span><span class="hero-cursor"></span></h1>
+      <h1>Clienții tăi te caută pe Google. <span class="highlight" id="heroTyping"></span><span class="hero-cursor"></span></h1>
       <p class="subheadline">Construim site-uri profesionale pentru afaceri locale din Suceava.</p>
       <p style="font-size:0.95rem; color:#475569; margin-bottom:24px; font-style:italic;">Ești invizibil online. Noi schimbăm asta.</p>
       <div class="hero-buttons">
@@ -1215,12 +1298,16 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       <h2>Exemple de <span class="accent">Lucrări</span></h2>
       <p>Câteva dintre site-urile pe care le-am realizat pentru clienții noștri.</p>
     </div>
-    <div class="portfolio-grid reveal">
+    <div class="portfolio-carousel reveal">
+      <span class="carousel-hint">click pe card sau apasă →</span>
 
       <!-- Card 1: TrueAlin Production -->
-      <div class="portfolio-card">
-        <a href="https://true-alin.web.app/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0a0a0a; display:block; cursor:pointer;">
+      <div class="portfolio-card" data-stack="0">
+        <a href="https://true-alin.web.app/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0a0a0a; display:block;">
           <img src="truealin.jpg" alt="TrueAlin Production" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div class="portfolio-overlay">
+            <span class="portfolio-overlay-btn">Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
         </a>
         <div class="portfolio-info">
           <h3>TrueAlin Production</h3>
@@ -1237,9 +1324,12 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       </div>
 
       <!-- Card 2: Auto Marnik Paint -->
-      <div class="portfolio-card">
-        <a href="https://automarnik.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0d0a0a; display:block; cursor:pointer;">
+      <div class="portfolio-card" data-stack="1">
+        <a href="https://automarnik.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0d0a0a; display:block;">
           <img src="marnikpaint.jpg" alt="Auto Marnik Paint" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div class="portfolio-overlay">
+            <span class="portfolio-overlay-btn">Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
         </a>
         <div class="portfolio-info">
           <h3>Auto Marnik Paint</h3>
@@ -1256,9 +1346,12 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       </div>
 
       <!-- Card 3: GDA Proiect -->
-      <div class="portfolio-card">
-        <a href="https://gdaproiect.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0f0d08; display:block; cursor:pointer;">
+      <div class="portfolio-card" data-stack="2">
+        <a href="https://gdaproiect.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0f0d08; display:block;">
           <img src="gdaproiect.png" alt="GDA Proiect" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div class="portfolio-overlay">
+            <span class="portfolio-overlay-btn">Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
         </a>
         <div class="portfolio-info">
           <h3>GDA Proiect</h3>
@@ -1274,6 +1367,14 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
         </div>
       </div>
 
+      <div class="carousel-nav">
+        <div class="carousel-dots">
+          <span class="carousel-dot active" data-idx="0"></span>
+          <span class="carousel-dot" data-idx="1"></span>
+          <span class="carousel-dot" data-idx="2"></span>
+        </div>
+        <button class="carousel-next-btn" id="portfolioNext">Următorul →</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1786,6 +1887,78 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   z-index:9999;
   width:100%; height:100%;
 "></canvas>
+<script>
+(function() {
+  const el = document.getElementById('heroTyping');
+  const text = 'Ești acolo?';
+  let i = 0;
+  setTimeout(function type() {
+    el.textContent = text.slice(0, ++i);
+    if (i < text.length) setTimeout(type, 80);
+  }, 600);
+})();
+</script>
+
+<script>
+(function() {
+  const cards = Array.from(document.querySelectorAll('.portfolio-card'));
+  const dots = Array.from(document.querySelectorAll('.carousel-dot'));
+  const nextBtn = document.getElementById('portfolioNext');
+  let current = 0;
+  let animating = false;
+
+  function updateStack() {
+    cards.forEach((card, i) => {
+      const pos = (i - current + cards.length) % cards.length;
+      card.setAttribute('data-stack', pos);
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === current);
+    });
+  }
+
+  function next() {
+    if (animating) return;
+    animating = true;
+    const frontCard = cards[current];
+    frontCard.classList.add('exiting');
+    setTimeout(() => {
+      frontCard.classList.remove('exiting');
+      current = (current + 1) % cards.length;
+      updateStack();
+      animating = false;
+    }, 520);
+  }
+
+  nextBtn.addEventListener('click', next);
+
+  cards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      if (this.getAttribute('data-stack') === '0' && !e.target.closest('a')) next();
+    });
+  });
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      if (animating || i === current) return;
+      animating = true;
+      const frontCard = cards[current];
+      frontCard.classList.add('exiting');
+      setTimeout(() => {
+        frontCard.classList.remove('exiting');
+        current = i;
+        updateStack();
+        animating = false;
+      }, 520);
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') next();
+  });
+})();
+</script>
+
 <script>
 (function() {
   // Dezactivat pe dispozitive touch (mobil/tabletă) — economisește baterie
