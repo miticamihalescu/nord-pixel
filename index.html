@@ -137,14 +137,16 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   padding: 16px 0;
-  transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+  background: var(--hero-bg);
+  background-image:
+    linear-gradient(rgba(10,15,26,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,15,26,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  transition: padding 0.4s, box-shadow 0.4s;
 }
 .navbar.scrolled {
-  background: rgba(10, 15, 26, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   padding: 10px 0;
-  box-shadow: 0 1px 0 rgba(56,189,248,0.08), 0 8px 32px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 16px rgba(10,15,26,0.12);
 }
 .navbar .container {
   display: flex; align-items: center; justify-content: space-between;
@@ -154,10 +156,6 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 }
 .navbar-logo img {
   height: 38px; width: auto;
-  transition: filter 0.4s;
-}
-.navbar.scrolled .navbar-logo img {
-  filter: drop-shadow(0 0 8px rgba(56,189,248,0.25));
 }
 .navbar-links { display: flex; gap: 32px; list-style: none; }
 .navbar-links a {
@@ -173,10 +171,9 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .navbar-links a:hover, .navbar-links a.active { color: var(--accent-teal); }
 .navbar-links a.active::after, .navbar-links a:hover::after { width: 100%; }
 
-/* Hero override: navbar links dark */
-.navbar:not(.scrolled) .navbar-links a { color: #64748b; }
-.navbar:not(.scrolled) .navbar-links a:hover,
-.navbar:not(.scrolled) .navbar-links a.active { color: #0a0f1a; }
+.navbar-links a { color: #334155 !important; }
+.navbar-links a:hover,
+.navbar-links a.active { color: #0a0f1a !important; }
 
 .hamburger {
   display: none; flex-direction: column; gap: 5px;
@@ -186,7 +183,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   display: block; width: 24px; height: 2px;
   background: var(--text-primary); transition: all 0.3s;
 }
-.navbar:not(.scrolled) .hamburger span { background: #334155; }
+.hamburger span { background: #334155; }
 .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
@@ -1326,7 +1323,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       <!-- Card 2: Auto Marnik Paint -->
       <div class="portfolio-card" data-stack="1">
         <a href="https://automarnik.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0d0a0a; display:block;">
-          <img src="marnikpaint.jpg" alt="Auto Marnik Paint" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <img src="marnikpaint.png" alt="Auto Marnik Paint" style="width:100%; height:100%; object-fit:cover; display:block;">
           <div class="portfolio-overlay">
             <span class="portfolio-overlay-btn">Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </div>
