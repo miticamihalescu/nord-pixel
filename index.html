@@ -137,16 +137,19 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   padding: 16px 0;
-  background: var(--hero-bg);
+  background: rgba(245, 240, 232, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   background-image:
     linear-gradient(rgba(10,15,26,0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(10,15,26,0.04) 1px, transparent 1px);
   background-size: 40px 40px;
+  border-bottom: 1px solid rgba(10,15,26,0.06);
   transition: padding 0.4s, box-shadow 0.4s;
 }
 .navbar.scrolled {
   padding: 10px 0;
-  box-shadow: 0 2px 16px rgba(10,15,26,0.12);
+  box-shadow: 0 4px 24px rgba(10,15,26,0.1);
 }
 .navbar .container {
   display: flex; align-items: center; justify-content: space-between;
