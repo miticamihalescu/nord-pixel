@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nord Pixel — Creare Site Web Suceava</title>
-<meta name="description" content="Creare site web în Suceava și Rădăuți. Site-uri profesionale pentru afaceri locale, livrate în 3-7 zile. Prețuri de la 599€. Cere ofertă gratuită!">
+<meta name="description" content="Creare site web în Suceava și Rădăuți. Site-uri profesionale pentru afaceri locale, livrate în 3-7 zile. Răspundem în 2 ore. Cere ofertă gratuită!">
 <meta name="keywords" content="creare site web Suceava, web design Suceava, creare site Rădăuți, agenție web Suceava">
 <meta name="geo.region" content="RO-SV">
 <meta name="geo.placename" content="Suceava">
@@ -13,7 +13,7 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <meta property="og:title" content="Nord Pixel — Creare Site Web Suceava">
-<meta property="og:description" content="Site-uri profesionale pentru afaceri locale din Suceava și Rădăuți. Livrare în 3-7 zile, prețuri de la 599€.">
+<meta property="og:description" content="Site-uri profesionale pentru afaceri locale din Suceava și Rădăuți. Livrare în 3-7 zile, răspuns în 2 ore.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ro_RO">
 <meta property="og:url" content="https://nordpixel.ro/">
@@ -888,6 +888,8 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   color: rgba(148,163,184,0.4); font-size: 0.8rem;
 }
 
+.steps-grid { grid-template-columns: repeat(3, 1fr); }
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1024px) {
   .hero .container { flex-direction: column; text-align: center; gap: 40px; }
@@ -909,6 +911,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   .hero-content h1 { font-size: 1.8rem; }
   .hero-image img { max-width: 100%; }
   .services-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr; }
   .portfolio-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .stats { flex-direction: column; gap: 24px; }
@@ -948,6 +951,39 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 
   /* Hero trust badges — mai mici */
   .hero-badge { font-size: 0.78rem; }
+
+  /* Portfolio carousel — mobil */
+  .portfolio-carousel {
+    height: auto;
+    padding-bottom: 72px;
+    min-height: 520px;
+  }
+  .portfolio-card {
+    width: calc(100vw - 48px);
+    max-width: 360px;
+  }
+  .portfolio-card[data-stack="1"] {
+    transform: translateX(16px) translateY(10px) rotate(3deg) scale(0.95);
+  }
+  .portfolio-card[data-stack="2"] {
+    transform: translateX(28px) translateY(20px) rotate(6deg) scale(0.9);
+  }
+  .carousel-nav {
+    bottom: 16px;
+  }
+  .carousel-next-btn {
+    padding: 10px 24px;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+  .carousel-dot.active {
+    width: 24px;
+  }
+  .carousel-hint { display: none; }
 }
 
 @media (max-width: 480px) {
@@ -1141,7 +1177,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       <h2>Fiecare zi fără site înseamnă <span class="accent">clienți pierduți</span></h2>
       <p>Concurența ta e deja pe Google. Clienții care te caută acum... găsesc pe altcineva.</p>
     </div>
-    <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="services-grid steps-grid">
       <div class="service-card reveal" style="text-align: center; border-color: rgba(248,113,113,0.2);">
         <div style="font-size: 2.2rem; margin-bottom: 16px;">😟</div>
         <h3 style="margin-bottom: 12px; color: #f87171;">Ești invizibil online</h3>
@@ -1270,7 +1306,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       <h2>Cum <span class="accent">funcționează</span>?</h2>
       <p>Trei pași simpli și afacerea ta e pe internet.</p>
     </div>
-    <div class="services-grid" style="grid-template-columns: repeat(3,1fr);">
+    <div class="services-grid steps-grid">
       <div class="service-card reveal" style="text-align:center;">
         <div style="font-size:2.5rem; margin-bottom:16px;">💬</div>
         <h3 style="margin-bottom:12px;">1. Ne contactezi</h3>
@@ -1437,7 +1473,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       <h2>Imaginează-ți că afacerea ta <span class="accent">arată așa</span></h2>
       <p>Asta e realitatea clienților noștri după ce site-ul lor e live.</p>
     </div>
-    <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="services-grid steps-grid">
       <div class="service-card reveal" style="text-align: center; border-color: rgba(74,222,128,0.2);">
         <div style="font-size: 2.2rem; margin-bottom: 16px;">📱</div>
         <h3 style="margin-bottom: 12px; color: #4ade80;">Apari pe Google</h3>
