@@ -256,7 +256,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   text-decoration: none; display: inline-block;
 }
 .btn-primary:hover {
-  background: #5ccbfa; transform: translateY(-2px);
+  background: #5ccbfa;
   box-shadow: 0 8px 25px rgba(56,189,248,0.3);
 }
 .btn-outline {
@@ -268,19 +268,32 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 }
 .btn-outline:hover {
   background: #0a0f1a; color: var(--hero-bg);
-  transform: translateY(-2px);
 }
 .hero-image {
   flex: 1; text-align: center;
   position: relative;
   animation: heroFloat 6s ease-in-out infinite;
+  perspective: 900px;
+}
+.hero-image-inner {
+  display: inline-block;
+  transform-style: preserve-3d;
+  transition: transform 0.08s ease-out;
+  position: relative;
 }
 .hero-image img {
   max-width: 100%; max-height: 460px;
   width: auto; height: auto; display: block; margin: 0 auto;
-  filter: drop-shadow(0 20px 50px rgba(56,189,248,0.18));
-  transition: transform 0.12s ease-out;
+  filter: drop-shadow(0 24px 60px rgba(56,189,248,0.28));
 }
+.hero-glare {
+  position: absolute; inset: 0; border-radius: 12px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.hero-image-inner:hover .hero-glare { opacity: 1; }
 @keyframes heroFloat {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-30px); }
@@ -1165,7 +1178,10 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       </div>
     </div>
     <div class="hero-image">
-      <img src="hero.png" alt="Nord Pixel Hero Illustration" id="heroImg">
+      <div class="hero-image-inner" id="heroTilt">
+        <img src="hero.png" alt="Nord Pixel Hero Illustration" id="heroImg">
+        <div class="hero-glare" id="heroGlare"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1780,17 +1796,32 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   }, { threshold: 0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
-  // ===== HERO PARALLAX =====
-  const heroImg = document.getElementById('heroImg');
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-    const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
-    heroImg.style.transform = `translate(${x * 18}px, ${y * 12}px)`;
-  });
-  hero.addEventListener('mouseleave', () => {
-    heroImg.style.transform = '';
-  });
+  // ===== HERO 3D TILT =====
+  const heroTilt = document.getElementById('heroTilt');
+  const heroGlare = document.getElementById('heroGlare');
+  if (heroTilt) {
+    hero.addEventListener('mousemove', (e) => {
+      const rect = heroTilt.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+      const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+      const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+      const rotX = clamp(-y * 14, -12, 12);
+      const rotY = clamp(x * 14, -12, 12);
+      heroTilt.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
+      if (heroGlare) {
+        const glareX = (x + 1) / 2 * 100;
+        const glareY = (y + 1) / 2 * 100;
+        heroGlare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.2), transparent 60%)`;
+        heroGlare.style.opacity = '1';
+      }
+    });
+    hero.addEventListener('mouseleave', () => {
+      heroTilt.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+      heroTilt.style.transition = 'transform 0.5s ease-out';
+      if (heroGlare) heroGlare.style.opacity = '0';
+      setTimeout(() => { heroTilt.style.transition = 'transform 0.08s ease-out'; }, 500);
+    });
+  }
 
   // ===== COUNTER ANIMATION =====
   const statNumbers = document.querySelectorAll('.stat-number');
@@ -1916,6 +1947,23 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   createPixels('particles1', 20);
   createPixels('particles2', 20);
   createPixels('particles3', 15);
+
+  // ===== MAGNETIC BUTTONS =====
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.35;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.35;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+        btn.style.transition = 'transform 0.1s ease, box-shadow 0.3s, background 0.3s';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0, 0)';
+        btn.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s, background 0.3s';
+      });
+    });
+  }
 
 })();
 </script>
