@@ -560,6 +560,11 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   z-index: 1;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
+.portfolio-card[data-stack="3"] {
+  transform: translateX(180px) translateY(36px) rotate(18deg) scale(0.79);
+  z-index: 0;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
 .portfolio-card.exiting {
   transform: translateX(-140%) translateY(-30px) rotate(-20deg) scale(0.75) !important;
   opacity: 0 !important;
@@ -981,6 +986,9 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   .portfolio-card[data-stack="2"] {
     transform: translateX(28px) translateY(20px) rotate(6deg) scale(0.9);
   }
+  .portfolio-card[data-stack="3"] {
+    transform: translateX(40px) translateY(30px) rotate(9deg) scale(0.85);
+  }
   .carousel-nav {
     bottom: 16px;
   }
@@ -1131,11 +1139,9 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
     </a>
     <ul class="navbar-links" id="navLinks">
       <li><a href="#despre" data-section="despre">Despre</a></li>
-      <li><a href="#servicii" data-section="servicii">Servicii</a></li>
       <li><a href="#portofoliu" data-section="portofoliu">Portofoliu</a></li>
       <li><a href="#testimoniale" data-section="testimoniale">Testimoniale</a></li>
       <li><a href="#preturi" data-section="preturi">Prețuri</a></li>
-      <li><a href="#faq" data-section="faq">FAQ</a></li>
       <li><a href="#contact" data-section="contact">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Meniu">
@@ -1148,11 +1154,9 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 <div class="mobile-overlay" id="mobileOverlay"></div>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#despre">Despre</a>
-  <a href="#servicii">Servicii</a>
   <a href="#portofoliu">Portofoliu</a>
   <a href="#testimoniale">Testimoniale</a>
   <a href="#preturi">Prețuri</a>
-  <a href="#faq">FAQ</a>
   <a href="#contact">Contact</a>
 </div>
 
@@ -1169,7 +1173,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       <p style="font-size:0.95rem; color:#475569; margin-bottom:24px; font-style:italic;">Ești invizibil online. Noi schimbăm asta.</p>
       <div class="hero-buttons">
         <a href="#contact" class="btn-primary">Vreau un site →</a>
-        <a href="#cum-functioneaza" class="btn-outline">Cum funcționează?</a>
+        <a href="#portofoliu" class="btn-outline">Vezi lucrările →</a>
       </div>
       <div class="hero-trust">
         <span class="hero-badge">Fără termeni tehnici</span>
@@ -1181,33 +1185,6 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       <div class="hero-image-inner" id="heroTilt">
         <img src="hero.png" alt="Nord Pixel Hero Illustration" id="heroImg">
         <div class="hero-glare" id="heroGlare"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MIZA -->
-<section class="section section-darker" id="miza" style="padding: 70px 0;">
-  <div class="container">
-    <div class="section-header reveal" style="margin-bottom: 48px;">
-      <h2>Fiecare zi fără site înseamnă <span class="accent">clienți pierduți</span></h2>
-      <p>Concurența ta e deja pe Google. Clienții care te caută acum... găsesc pe altcineva.</p>
-    </div>
-    <div class="services-grid steps-grid">
-      <div class="service-card reveal" style="text-align: center; border-color: rgba(248,113,113,0.2);">
-        <div style="font-size: 2.2rem; margin-bottom: 16px;">😟</div>
-        <h3 style="margin-bottom: 12px; color: #f87171;">Ești invizibil online</h3>
-        <p>Când cineva caută serviciile tale pe Google, găsește concurentul tău — nu pe tine.</p>
-      </div>
-      <div class="service-card reveal" style="text-align: center; border-color: rgba(248,113,113,0.2);">
-        <div style="font-size: 2.2rem; margin-bottom: 16px;">📉</div>
-        <h3 style="margin-bottom: 12px; color: #f87171;">Pierzi credibilitate</h3>
-        <p>Clienții moderni verifică online înainte să cumpere. Fără site, pari mai puțin de încredere.</p>
-      </div>
-      <div class="service-card reveal" style="text-align: center; border-color: rgba(248,113,113,0.2);">
-        <div style="font-size: 2.2rem; margin-bottom: 16px;">💸</div>
-        <h3 style="margin-bottom: 12px; color: #f87171;">Lași bani pe masă</h3>
-        <p>Clienții care ar fi apelat la tine ajung la altcineva. Asta se întâmplă în fiecare zi.</p>
       </div>
     </div>
   </div>
@@ -1238,110 +1215,6 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   </div>
 </section>
 
-<!-- SERVICII -->
-<section class="section section-darker" id="servicii">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2>Ce <span class="accent">Oferim</span></h2>
-      <p>Tot ce are nevoie afacerea ta ca să arate bine online și să fie găsită de clienți.</p>
-    </div>
-    <div class="services-grid">
-      <!-- Card 1: Frontend -->
-      <div class="service-card reveal">
-        <div class="service-icon">
-          <svg viewBox="0 0 32 32" fill="none">
-            <rect x="2" y="4" width="28" height="20" rx="2" stroke="#38bdf8" stroke-width="2"/>
-            <rect x="6" y="8" width="8" height="2" fill="#38bdf8"/>
-            <rect x="6" y="12" width="12" height="2" fill="#38bdf8" opacity="0.5"/>
-            <rect x="6" y="16" width="6" height="2" fill="#4ade80"/>
-            <rect x="10" y="26" width="12" height="2" fill="#38bdf8" opacity="0.3"/>
-          </svg>
-        </div>
-        <h3>Site de Prezentare</h3>
-        <p>Clienții care te caută online te găsesc imediat, văd că ești serios și te contactează cu încredere.</p>
-      </div>
-      <!-- Card 3: Fullstack -->
-      <div class="service-card reveal">
-        <div class="service-icon">
-          <svg viewBox="0 0 32 32" fill="none">
-            <path d="M6 12L16 4L26 12" stroke="#38bdf8" stroke-width="2" stroke-linejoin="round"/>
-            <rect x="8" y="12" width="16" height="16" stroke="#38bdf8" stroke-width="2"/>
-            <rect x="13" y="20" width="6" height="8" fill="#818cf8" opacity="0.5"/>
-            <rect x="10" y="14" width="4" height="4" fill="#4ade80" opacity="0.5"/>
-          </svg>
-        </div>
-        <h3>Site Complet, de la Zero</h3>
-        <p>Tu îți ocupi de afacere. Noi ne ocupăm de tot — design, texte, imagini, domeniu, hosting. Tu dai GO.</p>
-      </div>
-      <!-- Card 4: API -->
-      <div class="service-card reveal">
-        <div class="service-icon">
-          <svg viewBox="0 0 32 32" fill="none">
-            <circle cx="8" cy="16" r="4" stroke="#38bdf8" stroke-width="2"/>
-            <circle cx="24" cy="8" r="4" stroke="#818cf8" stroke-width="2"/>
-            <circle cx="24" cy="24" r="4" stroke="#4ade80" stroke-width="2"/>
-            <line x1="12" y1="14" x2="20" y2="9" stroke="#38bdf8" stroke-width="1.5"/>
-            <line x1="12" y1="18" x2="20" y2="23" stroke="#38bdf8" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <h3>Rezervări & Programări Online</h3>
-        <p>Agenda ta se completează singură, chiar și în weekend sau noaptea. Zero apeluri inutile pentru programări.</p>
-      </div>
-      <!-- Card 5: Performance -->
-      <div class="service-card reveal">
-        <div class="service-icon">
-          <svg viewBox="0 0 32 32" fill="none">
-            <path d="M4 28L10 18L16 22L22 8L28 12" stroke="#38bdf8" stroke-width="2" stroke-linejoin="round"/>
-            <circle cx="28" cy="12" r="2" fill="#4ade80"/>
-            <path d="M22 4L28 4L28 10" stroke="#4ade80" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <h3>Vizibil pe Google</h3>
-        <p>Apari mai sus decât concurența ta în Google, chiar și fără publicitate plătită. Clienții te găsesc primii.</p>
-      </div>
-      <!-- Card 6: Consultanță -->
-      <div class="service-card reveal">
-        <div class="service-icon">
-          <svg viewBox="0 0 32 32" fill="none">
-            <path d="M16 4C9.4 4 4 9 4 15C4 18.5 5.8 21.5 8.5 23.3V28L13 25.2C14 25.4 15 25.5 16 25.5C22.6 25.5 28 20.5 28 14.75C28 9 22.6 4 16 4Z" stroke="#38bdf8" stroke-width="2"/>
-            <rect x="11" y="12" width="10" height="1.5" fill="#38bdf8" opacity="0.6"/>
-            <rect x="11" y="16" width="7" height="1.5" fill="#4ade80" opacity="0.6"/>
-          </svg>
-        </div>
-        <h3>Suport & Întreținere</h3>
-        <p>Nu ești singur după lansare. Ești mereu la un mesaj distanță dacă vrei să schimbi ceva sau ai o întrebare.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CUM FUNCTIONEAZA -->
-<section class="section section-dark" id="cum-functioneaza">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2>Cum <span class="accent">funcționează</span>?</h2>
-      <p>Trei pași simpli și afacerea ta e pe internet.</p>
-    </div>
-    <div class="services-grid steps-grid">
-      <div class="service-card reveal" style="text-align:center;">
-        <div style="font-size:2.5rem; margin-bottom:16px;">💬</div>
-        <h3 style="margin-bottom:12px;">1. Ne contactezi</h3>
-        <p>Trimiți un mesaj sau ne suni. Îți răspundem în aceeași zi și stabilim o discuție de 15-20 de minute.</p>
-      </div>
-      <div class="service-card reveal" style="text-align:center;">
-        <div style="font-size:2.5rem; margin-bottom:16px;">🎯</div>
-        <h3 style="margin-bottom:12px;">2. Spui ce vrei</h3>
-        <p>Ne povestești despre afacerea ta. Noi ne ocupăm de tot restul — design, texte, poze, domeniu, hosting.</p>
-      </div>
-      <div class="service-card reveal" style="text-align:center;">
-        <div style="font-size:2.5rem; margin-bottom:16px;">🚀</div>
-        <h3 style="margin-bottom:12px;">3. Site-ul e live</h3>
-        <p>În câteva zile, afacerea ta apare online. Clienții te găsesc pe Google și te pot contacta direct.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- PORTOFOLIU -->
 <section class="section section-dark" id="portofoliu">
   <div class="pixel-particles" id="particles2"></div>
@@ -1353,8 +1226,30 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
     <div class="portfolio-carousel reveal">
       <span class="carousel-hint">click pe card sau apasă →</span>
 
-      <!-- Card 1: GDA Proiect -->
+      <!-- Card 1: MGX Fitness & Piscină -->
       <div class="portfolio-card" data-stack="0">
+        <a href="https://mgx-fitness-piscina.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0b1220; display:block;">
+          <img src="mgxfitness.png" alt="MGX Fitness & Piscină" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div class="portfolio-overlay">
+            <span class="portfolio-overlay-btn">Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+        <div class="portfolio-info">
+          <h3>MGX Fitness &amp; Piscină</h3>
+          <p>Site de prezentare pentru un centru de fitness și piscină din Marginea, Suceava — sală modernă, piscină și lecții de înot.</p>
+          <div class="portfolio-tags">
+            <span class="tag">Fitness</span>
+            <span class="tag">Piscină</span>
+            <span class="tag">Înot</span>
+          </div>
+          <a href="https://mgx-fitness-piscina.ro/" target="_blank" rel="noopener" class="portfolio-link">
+            Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: GDA Proiect -->
+      <div class="portfolio-card" data-stack="1">
         <a href="https://gdaproiect.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0f0d08; display:block;">
           <img src="gdaproiect.png" alt="GDA Proiect" style="width:100%; height:100%; object-fit:cover; display:block;">
           <div class="portfolio-overlay">
@@ -1375,8 +1270,8 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
         </div>
       </div>
 
-      <!-- Card 2: Auto Marnik Paint -->
-      <div class="portfolio-card" data-stack="1">
+      <!-- Card 3: Auto Marnik Paint -->
+      <div class="portfolio-card" data-stack="2">
         <a href="https://automarnik.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0d0a0a; display:block;">
           <img src="marnikpaint.png" alt="Auto Marnik Paint" style="width:100%; height:100%; object-fit:cover; display:block;">
           <div class="portfolio-overlay">
@@ -1397,8 +1292,8 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
         </div>
       </div>
 
-      <!-- Card 3: TrueAlin Production -->
-      <div class="portfolio-card" data-stack="2">
+      <!-- Card 4: TrueAlin Production -->
+      <div class="portfolio-card" data-stack="3">
         <a href="https://true-alin.web.app/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0a0a0a; display:block;">
           <img src="truealin.jpg" alt="TrueAlin Production" style="width:100%; height:100%; object-fit:cover; display:block;">
           <div class="portfolio-overlay">
@@ -1424,6 +1319,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
           <span class="carousel-dot active" data-idx="0"></span>
           <span class="carousel-dot" data-idx="1"></span>
           <span class="carousel-dot" data-idx="2"></span>
+          <span class="carousel-dot" data-idx="3"></span>
         </div>
         <button class="carousel-next-btn" id="portfolioNext">Următorul →</button>
       </div>
@@ -1478,32 +1374,18 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- SUCCES -->
-<section class="section section-darker" id="succes" style="padding: 70px 0;">
-  <div class="container">
-    <div class="section-header reveal" style="margin-bottom: 48px;">
-      <h2>Imaginează-ți că afacerea ta <span class="accent">arată așa</span></h2>
-      <p>Asta e realitatea clienților noștri după ce site-ul lor e live.</p>
-    </div>
-    <div class="services-grid steps-grid">
-      <div class="service-card reveal" style="text-align: center; border-color: rgba(74,222,128,0.2);">
-        <div style="font-size: 2.2rem; margin-bottom: 16px;">📱</div>
-        <h3 style="margin-bottom: 12px; color: #4ade80;">Apari pe Google</h3>
-        <p>Clienții din Suceava și din toată România te găsesc exact când au nevoie de ce oferi tu.</p>
-      </div>
-      <div class="service-card reveal" style="text-align: center; border-color: rgba(74,222,128,0.2);">
-        <div style="font-size: 2.2rem; margin-bottom: 16px;">📞</div>
-        <h3 style="margin-bottom: 12px; color: #4ade80;">Telefonul sună mai des</h3>
-        <p>Clienții noi te contactează pentru că te văd online și au încredere că ești un profesionist.</p>
-      </div>
-      <div class="service-card reveal" style="text-align: center; border-color: rgba(74,222,128,0.2);">
-        <div style="font-size: 2.2rem; margin-bottom: 16px;">😌</div>
-        <h3 style="margin-bottom: 12px; color: #4ade80;">Crești fără stres</h3>
-        <p>Tu te ocupi de ce știi cel mai bine. Site-ul lucrează pentru tine 24/7, non-stop.</p>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">
+          <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+        </div>
+        <p class="testimonial-text">&ldquo;Site-ul arată modern și profesionist, exact ca energia de la noi din sală. Acum avem un loc unde oamenii pot vedea ce oferim și ce ne face speciali. Recomand Nord Pixel cu toată inima!&rdquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#f43f5e,#e11d48);">LG</div>
+          <div>
+            <div class="testimonial-name">Lenuța Grigorean</div>
+            <div class="testimonial-role">Proprietar, MGX Gym</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1513,134 +1395,34 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 <section class="section section-dark" id="preturi">
   <div class="container">
     <div class="section-header reveal">
-      <h2>Prețuri <span class="accent">Clare</span></h2>
-      <p>Fără surprize. Știi exact ce primești și cât costă, înainte să începem.</p>
+      <h2>Un Singur <span class="accent">Abonament</span></h2>
+      <p>Fără investiție mare la început. Plătești lunar și ai mereu pe cineva care îți ține site-ul viu.</p>
     </div>
-    <div class="pricing-grid">
+    <div class="pricing-card featured reveal" style="max-width:480px; margin:0 auto;">
+      <div class="pricing-badge">Tot inclus</div>
+      <div class="pricing-name">Site Complet</div>
+      <div class="pricing-price">100€ <span>/ lună</span></div>
+      <p class="pricing-desc" style="margin-bottom:20px; padding-bottom:0; border:none;">150€ ca să-l construim, 100€/lună ca să-l ținem viu.</p>
 
-      <!-- Plan 1: Start -->
-      <div class="pricing-card reveal">
-        <div class="pricing-name">Start</div>
-        <div class="pricing-price">599 <span>€</span></div>
-        <p class="pricing-desc">Perfect pentru o afacere care vrea să fie prezentă online simplu și rapid.</p>
-        <ul class="pricing-features">
-          <li>Site complet de prezentare</li>
-          <li>Design personalizat pe brandul tău</li>
-          <li>Optimizat pentru mobil</li>
-          <li>Formularul de contact</li>
-          <li>Domeniu & hosting inclus (1 an)</li>
-          <li>Google Business Profile configurat</li>
-          <li>Livrare în 5 zile</li>
-          <li class="off">Optimizare SEO</li>
-        </ul>
-        <a href="#contact" class="btn-pricing btn-pricing-outline">Vreau asta</a>
+      <div style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.2); border-radius:12px; padding:16px 20px; margin-bottom:28px; text-align:center;">
+        <div style="font-family:'Space Mono',monospace; font-size:1.4rem; font-weight:700; color:var(--text-primary);">Prima lună: 250€</div>
+        <div style="font-size:0.85rem; color:var(--text-secondary); margin-top:4px;">apoi doar 100€ în fiecare lună</div>
       </div>
 
-      <!-- Plan 2: Business (recomandat) -->
-      <div class="pricing-card featured reveal">
-        <div class="pricing-badge">Recomandat</div>
-        <div class="pricing-name">Business</div>
-        <div class="pricing-price">999 <span>€</span></div>
-        <p class="pricing-desc">Cel mai ales pachet — include tot ce ai nevoie ca să fii găsit pe Google.</p>
-        <ul class="pricing-features">
-          <li>Site extins de prezentare</li>
-          <li>Design personalizat pe brandul tău</li>
-          <li>Optimizat pentru mobil</li>
-          <li>Formularul de contact</li>
-          <li>Domeniu & hosting inclus (1 an)</li>
-          <li>Optimizare SEO de bază</li>
-          <li>Google Business Profile configurat</li>
-          <li>Google Analytics instalat</li>
-          <li>Integrare buton WhatsApp</li>
-          <li>Livrare în 7-10 zile</li>
-        </ul>
-        <a href="#contact" class="btn-pricing btn-pricing-solid">Vreau asta</a>
-      </div>
-
+      <ul class="pricing-features">
+        <li>Site complet, design personalizat pe brandul tău</li>
+        <li>Optimizat pentru mobil</li>
+        <li><strong>Domeniu & hosting incluse</strong> — mereu</li>
+        <li><strong>2-3 modificări incluse pe lună</strong>, în maxim 24h</li>
+        <li>Mentenanță, backup & monitorizare 24/7</li>
+        <li>Google Business Profile + buton WhatsApp</li>
+        <li>Suport tehnic prioritar</li>
+        <li>Contract minim 1 an</li>
+      </ul>
+      <a href="#contact" class="btn-pricing btn-pricing-solid">Vreau site-ul meu</a>
     </div>
 
-    <!-- Mentenanță lunară -->
-    <div class="maintenance-card reveal">
-      <div class="maintenance-inner">
-        <div>
-          <div class="pricing-name" style="margin-bottom:6px;">Mentenanță Lunară</div>
-          <div class="pricing-price" style="font-size:1.8rem; margin-bottom:4px;">100€ <span>/ lună</span></div>
-          <ul class="pricing-features" style="margin-top:12px; columns:2; gap:8px;">
-            <li>Actualizări de conținut</li>
-            <li>Backup lunar automat</li>
-            <li>Monitorizare uptime 24/7</li>
-            <li>Suport tehnic prioritar</li>
-            <li><strong>Reînnoire hosting & domeniu inclusă</strong></li>
-            <li>Modificări rapide în 24h</li>
-            <li>Raport lunar cu vizitatori</li>
-          </ul>
-        </div>
-        <a href="#contact" class="btn-pricing btn-pricing-outline" style="width:auto; padding:11px 28px; white-space:nowrap; flex-shrink:0;">Vreau asta</a>
-      </div>
-    </div>
-
-    <p class="pricing-note reveal">Toate prețurile sunt <strong>unice</strong>. Rămân partenerul tău și după livrare. <a href="#contact" style="color:var(--accent-teal); text-decoration:none;">Hai să discutăm.</a></p>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section section-darker" id="faq">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2>Întrebări <span class="accent">Frecvente</span></h2>
-      <p>Răspunsuri la cele mai comune întrebări înainte să colaborăm.</p>
-    </div>
-    <div class="faq-list reveal">
-
-      <div class="faq-item">
-        <button class="faq-question">
-          Cât durează să fac un site?
-          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-width="2" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-answer">De obicei între 3 și 7 zile lucrătoare de la prima discuție. Depinde de complexitate, dar nu te lăsăm să aștepți săptămâni întregi.</div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">
-          Am nevoie de ceva pregătit dinainte?
-          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-width="2" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-answer">Nu neapărat. Dacă ai logo, poze sau texte — perfect. Dacă nu, ne ocupăm noi de tot. Tu ne povestești despre afacerea ta, restul e treaba noastră.</div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">
-          Pot modifica site-ul după ce e gata?
-          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-width="2" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-answer">Da, absolut. Modificările mici (texte, poze, prețuri) le facem noi rapid. Suntem la un mesaj distanță și după lansare.</div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">
-          Ce se întâmplă cu domeniul și hosting-ul după primul an?
-          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-width="2" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-answer">Primul an de domeniu și hosting este inclus în orice pachet. După primul an, reînnoirea este inclusă în mentenanța lunară — nu plătești nimic extra dacă ești abonat.</div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">
-          Apare site-ul și pe telefon?
-          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-width="2" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-answer">Da, toate site-urile noastre sunt optimizate pentru mobil. Peste 70% din vizitatori vin de pe telefon — asta știm și construim în consecință.</div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">
-          Cum fac plata?
-          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-width="2" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-answer">50% la start, 50% la livrare. Acceptăm transfer bancar sau cash. Nu plătești tot înainte să vezi rezultatul.</div>
-      </div>
-
-    </div>
+    <p class="pricing-note reveal">Nu cumperi doar un site — ai un <strong>partener</strong> care îți ține prezența online vie. <a href="#contact" style="color:var(--accent-teal); text-decoration:none;">Hai să discutăm.</a></p>
   </div>
 </section>
 
