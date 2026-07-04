@@ -8,7 +8,7 @@
 <meta name="keywords" content="creare site web Suceava, web design Suceava, creare site Rădăuți, agenție web Suceava">
 <meta name="geo.region" content="RO-SV">
 <meta name="geo.placename" content="Suceava">
-<meta name="theme-color" content="#0a0f1a">
+<meta name="theme-color" content="#222b38">
 <link rel="canonical" href="https://nordpixel.ro/">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
@@ -104,15 +104,32 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg-primary: #0a0f1a;
-  --bg-secondary: #0f1724;
+  /* Secțiuni întunecate (implicit) */
+  --bg-primary: #1b2431;
+  --bg-secondary: #212b3a;
   --accent-teal: #38bdf8;
   --accent-green: #4ade80;
   --accent-violet: #818cf8;
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --hero-bg: #f5f0e8;
+  --text-primary: #e8ecf1;
+  --text-secondary: #9aa7b8;
+  --hero-bg: #ffffff;
+
+  /* Variabile „semantice" care se răstoarnă per secțiune (light/dark) */
+  --card: #212b3a;
+  --card-border: rgba(148,163,184,0.10);
+  --hairline: rgba(148,163,184,0.12);
 }
+/* Context luminos (secțiuni albe, stil Apple) — răstoarnă variabilele */
+.section-light {
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --card: #ffffff;
+  --card-border: rgba(0,0,0,0.08);
+  --hairline: rgba(0,0,0,0.08);
+  background: #ffffff;
+  color: var(--text-primary);
+}
+.section-light-alt { background: #f5f5f7; }
 
 html { scroll-behavior: smooth; }
 
@@ -122,12 +139,15 @@ body {
   color: var(--text-primary);
   overflow-x: hidden;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb { background: var(--accent-teal); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #5ccbfa; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(120,130,145,0.4); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(120,130,145,0.6); }
 
 h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 
@@ -136,20 +156,16 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 /* ============ NAVBAR ============ */
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  padding: 10px 0;
-  background: rgba(245, 240, 232, 0.55);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  background-image:
-    linear-gradient(rgba(10,15,26,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10,15,26,0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
-  border-bottom: 1px solid rgba(10,15,26,0.06);
+  padding: 12px 0;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
   transition: padding 0.4s, box-shadow 0.4s;
 }
 .navbar.scrolled {
   padding: 8px 0;
-  box-shadow: 0 4px 24px rgba(10,15,26,0.08);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
 }
 .navbar .container {
   display: flex; align-items: center; justify-content: space-between;
@@ -220,16 +236,11 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   padding-top: 80px;
   display: flex; align-items: center;
 }
-.hero-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(10,15,26,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10,15,26,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
+/* Curat „Apple": fără grilă, fără forme plutitoare, fără particule */
+.hero-grid, .hero-shape, .pixel-particles { display: none !important; }
 
 .hero .container {
-  display: flex; align-items: center; gap: 60px;
+  display: flex; align-items: center; gap: 48px;
   position: relative; z-index: 1;
 }
 .hero-content { flex: 1; }
@@ -270,21 +281,22 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   background: #0a0f1a; color: var(--hero-bg);
 }
 .hero-image {
-  flex: 1; text-align: center;
+  flex: 1.4; text-align: center;
   position: relative;
-  animation: heroFloat 6s ease-in-out infinite;
-  perspective: 900px;
 }
 .hero-image-inner {
   display: inline-block;
-  transform-style: preserve-3d;
-  transition: transform 0.08s ease-out;
   position: relative;
 }
-.hero-image img {
-  max-width: 100%; max-height: 460px;
+.hero-image img,
+.hero-image video {
+  max-width: 100%; max-height: 620px;
   width: auto; height: auto; display: block; margin: 0 auto;
-  filter: drop-shadow(0 24px 60px rgba(56,189,248,0.28));
+  filter: drop-shadow(0 30px 60px rgba(15,23,42,0.12));
+}
+.hero-image video {
+  border-radius: 18px;
+  background: #000;
 }
 .hero-glare {
   position: absolute; inset: 0; border-radius: 12px;
@@ -296,7 +308,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .hero-image-inner:hover .hero-glare { opacity: 1; }
 @keyframes heroFloat {
   0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-30px); }
+  50%       { transform: translateY(-14px); }
 }
 
 /* Hero content fade-in */
@@ -308,7 +320,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .hero-content .subheadline { animation: heroFadeUp 0.7s ease both; animation-delay: 0.3s; }
 .hero-buttons           { animation: heroFadeUp 0.7s ease both; animation-delay: 0.5s; }
 .hero-trust             { animation: heroFadeUp 0.7s ease both; animation-delay: 0.7s; }
-.hero-image             { animation: heroFadeUp 0.9s ease both, heroFloat 6s ease-in-out 1s infinite; }
+.hero-image             { animation: heroFadeUp 0.9s ease both; }
 
 /* Trust badges */
 .hero-trust {
@@ -319,6 +331,8 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   font-size: 0.82rem; color: #475569;
   font-family: 'DM Sans', sans-serif;
 }
+/* Aceleași badge-uri, refolosite pe secțiuni închise → text deschis */
+.section-dark .hero-badge, .section-darker .hero-badge { color: var(--text-secondary); }
 .hero-badge::before {
   content: '✓';
   display: inline-flex; align-items: center; justify-content: center;
@@ -372,29 +386,20 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 }
 
 /* ============ SECTIONS COMMON ============ */
-.section { padding: 100px 0; position: relative; }
+.section { padding: 128px 0; position: relative; color: var(--text-primary); }
 .section-dark { background: var(--bg-primary); }
 .section-darker { background: var(--bg-secondary); }
 
-.section-header { text-align: center; margin-bottom: 64px; }
+.section-header { text-align: center; margin-bottom: 80px; }
 .section-header h2 {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  letter-spacing: -0.02em;
   margin-bottom: 16px;
-  text-shadow: 0 0 30px rgba(56,189,248,0.15);
 }
 .section-header .accent { color: var(--accent-teal); }
 .section-header p {
-  color: var(--text-secondary); font-size: 1.05rem;
+  color: var(--text-secondary); font-size: 1.1rem;
   max-width: 600px; margin: 0 auto;
-}
-
-/* Pixel grid overlay for dark sections */
-.section-dark::before, .section-darker::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background-image:
-    linear-gradient(rgba(56,189,248,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56,189,248,0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
 }
 
 /* ============ PIXEL PARTICLES ============ */
@@ -526,51 +531,87 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   line-height: 1.6; position: relative;
 }
 
-/* ============ PORTOFOLIU ============ */
-.portfolio-carousel {
+/* ============ PORTOFOLIU — BANDĂ CONTINUĂ „EFECT DE TREN" ============ */
+/* Cardurile curg orizontal, unul după altul, în buclă infinită. */
+.train-viewport {
   position: relative;
-  height: 520px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);   /* full-bleed: iese din container, pe toată lățimea */
+  overflow: hidden;
+  padding: 20px 0;
+  /* estompează marginile stânga/dreapta ca trenul să „intre/iasă" din cadru */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
 }
-.portfolio-card {
-  position: absolute;
-  width: 400px;
+.train-track {
+  display: flex;
+  gap: 28px;
+  width: max-content;
+  will-change: transform;
+}
+.train-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 360px; height: 240px;
   border-radius: 16px; overflow: hidden;
   background: var(--bg-secondary);
-  border: 1px solid rgba(148,163,184,0.06);
-  will-change: transform;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s, opacity 0.6s;
-  cursor: pointer;
+  border: 1px solid rgba(56,189,248,0.14);
+  box-shadow: 0 16px 38px rgba(0,0,0,0.45);
+  text-decoration: none;
+  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.5s ease, border-color 0.5s ease;
 }
-.portfolio-card[data-stack="0"] {
-  transform: translateX(0px) translateY(0px) rotate(0deg) scale(1);
-  z-index: 3;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-  border-color: rgba(56,189,248,0.15);
+.train-card img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(25%);
+  transition: transform 0.7s ease, filter 0.7s ease;
 }
-.portfolio-card[data-stack="1"] {
-  transform: translateX(70px) translateY(12px) rotate(6deg) scale(0.93);
-  z-index: 2;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+.train-card-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,17,26,0.95), rgba(12,17,26,0.12) 60%, transparent);
 }
-.portfolio-card[data-stack="2"] {
-  transform: translateX(130px) translateY(24px) rotate(12deg) scale(0.86);
-  z-index: 1;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+.train-card-body {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 16px;
 }
-.portfolio-card[data-stack="3"] {
-  transform: translateX(180px) translateY(36px) rotate(18deg) scale(0.79);
-  z-index: 0;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+.train-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.train-cat {
+  font-family: 'Space Mono', monospace; font-size: 0.66rem; letter-spacing: 0.03em;
+  padding: 4px 10px; border-radius: 50px;
+  background: rgba(10,15,26,0.65); color: var(--accent-teal);
+  backdrop-filter: blur(4px);
 }
-.portfolio-card.exiting {
-  transform: translateX(-140%) translateY(-30px) rotate(-20deg) scale(0.75) !important;
-  opacity: 0 !important;
-  z-index: 10 !important;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s !important;
+.train-arrow {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--accent-teal); color: #0a0f1a;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: rotate(-45deg);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
+.train-card h3 { font-size: 1.1rem; line-height: 1.2; color: #fff; margin: 0; }
+.train-underline { display: block; height: 2px; width: 0; background: var(--accent-teal); margin-top: 8px; transition: width 0.5s ease; }
+/* Hover pe un card: iese în evidență */
+.train-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 28px 58px rgba(0,0,0,0.55);
+  border-color: rgba(56,189,248,0.45);
+}
+.train-card:hover img { transform: scale(1.06); filter: grayscale(0); }
+.train-card:hover .train-arrow { opacity: 1; transform: rotate(0); }
+.train-card:hover .train-underline { width: 100%; }
+/* Mod swipe (mobil / touch): banda se trage cu degetul, fără mișcare automată */
+.train-viewport.train-swipe {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;                 /* Firefox */
+  -webkit-mask-image: none; mask-image: none;
+  padding: 20px 20px 24px;
+}
+.train-viewport.train-swipe::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+.train-swipe .train-card { scroll-snap-align: center; }
 .portfolio-thumb {
   height: 200px; position: relative; overflow: hidden;
 }
@@ -582,7 +623,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .portfolio-thumb img {
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.portfolio-card[data-stack="0"]:hover .portfolio-thumb img {
+.portfolio-card:hover .portfolio-thumb img {
   transform: scale(1.08);
 }
 .portfolio-overlay {
@@ -593,7 +634,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   transition: opacity 0.35s ease;
   backdrop-filter: blur(2px);
 }
-.portfolio-card[data-stack="0"]:hover .portfolio-overlay {
+.portfolio-card:hover .portfolio-overlay {
   opacity: 1;
 }
 .portfolio-overlay-btn {
@@ -605,9 +646,11 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   transform: translateY(10px);
   transition: transform 0.35s ease, background 0.2s;
 }
-.portfolio-card[data-stack="0"]:hover .portfolio-overlay-btn {
+.portfolio-card:hover .portfolio-overlay-btn {
   transform: translateY(0);
 }
+/* Navigarea manuală nu mai e necesară — caruselul se rotește singur */
+.carousel-hint, .carousel-nav { display: none; }
 .portfolio-overlay-btn:hover { background: #7dd3fc; }
 .portfolio-info { padding: 24px; }
 .portfolio-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
@@ -664,14 +707,15 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   gap: 24px;
 }
 .testimonial-card {
-  background: rgba(15,23,36,0.6);
-  border: 1px solid rgba(148,163,184,0.06);
-  border-radius: 16px; padding: 32px;
-  transition: all 0.3s;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px; padding: 32px;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .testimonial-card:hover {
-  border-color: rgba(56,189,248,0.15);
+  border-color: rgba(56,189,248,0.25);
   transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(15,23,42,0.10);
 }
 .testimonial-stars { margin-bottom: 16px; }
 .testimonial-stars span { color: #fbbf24; font-size: 1.1rem; }
@@ -697,10 +741,10 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   align-items: start;
 }
 .pricing-card {
-  background: rgba(15,23,36,0.6);
-  border: 1px solid rgba(148,163,184,0.08);
-  border-radius: 16px; padding: 36px 28px;
-  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 20px; padding: 40px 32px;
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), border-color 0.4s, box-shadow 0.4s;
   position: relative; overflow: hidden;
 }
 .pricing-card::before {
@@ -710,15 +754,14 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   pointer-events: none;
 }
 .pricing-card:hover {
-  border-color: rgba(56,189,248,0.25);
-  box-shadow: 0 0 30px rgba(56,189,248,0.08), 0 20px 40px rgba(0,0,0,0.3);
+  border-color: rgba(56,189,248,0.3);
+  box-shadow: 0 24px 50px rgba(15,23,42,0.12);
   transform: translateY(-6px);
 }
 .pricing-card:hover::before { opacity: 1; }
 .pricing-card.featured {
-  border-color: rgba(56,189,248,0.4);
-  background: rgba(56,189,248,0.04);
-  box-shadow: 0 0 40px rgba(56,189,248,0.12), 0 20px 40px rgba(0,0,0,0.3);
+  border-color: rgba(56,189,248,0.45);
+  box-shadow: 0 24px 60px rgba(56,189,248,0.14);
   transform: translateY(-8px);
 }
 .pricing-badge {
@@ -747,7 +790,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   color: var(--text-secondary); font-size: 0.9rem;
   margin-bottom: 28px; margin-top: 8px;
   padding-bottom: 24px;
-  border-bottom: 1px solid rgba(148,163,184,0.08);
+  border-bottom: 1px solid var(--hairline);
 }
 .pricing-features { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 12px; }
 .pricing-features li {
@@ -791,15 +834,15 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .pricing-note strong { color: var(--text-primary); }
 .maintenance-card {
   margin-top: 32px;
-  background: rgba(15,23,36,0.6);
-  border: 1px solid rgba(148,163,184,0.08);
-  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
   padding: 28px 36px;
   transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 .maintenance-card:hover {
-  border-color: rgba(56,189,248,0.25);
-  box-shadow: 0 0 30px rgba(56,189,248,0.08), 0 20px 40px rgba(0,0,0,0.3);
+  border-color: rgba(56,189,248,0.3);
+  box-shadow: 0 18px 40px rgba(15,23,42,0.10);
   transform: translateY(-4px);
 }
 .maintenance-inner {
@@ -912,7 +955,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 @media (max-width: 1024px) {
   .hero .container { flex-direction: column; text-align: center; gap: 40px; }
   .hero-buttons { justify-content: center; }
-  .hero-image img { max-width: 80%; }
+  .hero-image img, .hero-image video { max-width: 80%; }
   .about-content { flex-direction: column; text-align: center; }
   .stats { justify-content: center; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -927,13 +970,14 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   .mobile-menu { display: flex; }
   .hero { padding-top: 80px; min-height: auto; padding-bottom: 60px; }
   .hero-content h1 { font-size: 1.8rem; }
-  .hero-image img { max-width: 100%; }
+  .hero-image img, .hero-image video { max-width: 100%; }
   .services-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: 1fr; }
   .portfolio-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .stats { flex-direction: column; gap: 24px; }
-  .section { padding: 60px 0; }
+  .section { padding: 84px 0; }
+  .section-header { margin-bottom: 56px; }
 
   /* Animații orizontale → verticale pe mobil (flex stacked) */
   .reveal-left {
@@ -970,41 +1014,10 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
   /* Hero trust badges — mai mici */
   .hero-badge { font-size: 0.78rem; }
 
-  /* Portfolio carousel — mobil */
-  .portfolio-carousel {
-    height: auto;
-    padding-bottom: 72px;
-    min-height: 520px;
-  }
-  .portfolio-card {
-    width: calc(100vw - 48px);
-    max-width: 360px;
-  }
-  .portfolio-card[data-stack="1"] {
-    transform: translateX(16px) translateY(10px) rotate(3deg) scale(0.95);
-  }
-  .portfolio-card[data-stack="2"] {
-    transform: translateX(28px) translateY(20px) rotate(6deg) scale(0.9);
-  }
-  .portfolio-card[data-stack="3"] {
-    transform: translateX(40px) translateY(30px) rotate(9deg) scale(0.85);
-  }
-  .carousel-nav {
-    bottom: 16px;
-  }
-  .carousel-next-btn {
-    padding: 10px 24px;
-    font-size: 0.85rem;
-    min-height: 44px;
-  }
-  .carousel-dot {
-    width: 8px;
-    height: 8px;
-  }
-  .carousel-dot.active {
-    width: 24px;
-  }
-  .carousel-hint { display: none; }
+  /* Portofoliu — mobil: cardurile trenului mai mici */
+  .train-card { width: 280px; height: 190px; }
+  .train-card h3 { font-size: 1rem; }
+  .train-track { gap: 20px; }
 }
 
 @media (max-width: 480px) {
@@ -1033,10 +1046,11 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 
 /* Reduced motion pentru utilizatori care preferă animații reduse */
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-left, .reveal-right {
+  .reveal, .reveal-left, .reveal-right, .portfolio-card {
     opacity: 1; transform: none;
     transition: none;
   }
+  .portfolio-card-inner { animation: none; }
   .hero-image, .hero-content h1,
   .hero-content .subheadline, .hero-buttons, .hero-trust {
     animation: none;
@@ -1091,7 +1105,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .whatsapp-btn svg { width: 32px; height: 32px; fill: #fff; }
 .whatsapp-tooltip {
   position: absolute; right: 70px; white-space: nowrap;
-  background: #0f1724; color: var(--text-primary);
+  background: var(--bg-secondary); color: var(--text-primary);
   font-size: 0.85rem; font-weight: 500;
   padding: 8px 14px; border-radius: 8px;
   opacity: 0; pointer-events: none;
@@ -1182,9 +1196,19 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
       </div>
     </div>
     <div class="hero-image">
-      <div class="hero-image-inner" id="heroTilt">
-        <img src="hero.png" alt="Nord Pixel Hero Illustration" id="heroImg">
-        <div class="hero-glare" id="heroGlare"></div>
+      <div class="hero-image-inner">
+        <video
+          id="heroVideo"
+          autoplay
+          muted
+          playsinline
+          preload="auto"
+          poster="hero.png"
+          aria-label="Prezentare Nord Pixel">
+          <source src="hero-video.mp4" type="video/mp4">
+          <!-- Fallback dacă browserul nu poate reda videoul -->
+          <img src="hero.png" alt="Nord Pixel">
+        </video>
       </div>
     </div>
   </div>
@@ -1216,119 +1240,87 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 </section>
 
 <!-- PORTOFOLIU -->
-<section class="section section-dark" id="portofoliu">
+<section class="section section-light" id="portofoliu">
   <div class="pixel-particles" id="particles2"></div>
   <div class="container">
     <div class="section-header reveal">
       <h2>Exemple de <span class="accent">Lucrări</span></h2>
       <p>Câteva dintre site-urile pe care le-am realizat pentru clienții noștri.</p>
     </div>
-    <div class="portfolio-carousel reveal">
-      <span class="carousel-hint">click pe card sau apasă →</span>
+    <div class="train-viewport">
+      <div class="train-track" id="trainTrack">
 
-      <!-- Card 1: MGX Fitness & Piscină -->
-      <div class="portfolio-card" data-stack="0">
-        <a href="https://mgx-fitness-piscina.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0b1220; display:block;">
-          <img src="mgxfitness.png" alt="MGX Fitness & Piscină" style="width:100%; height:100%; object-fit:cover; display:block;">
-          <div class="portfolio-overlay">
-            <span class="portfolio-overlay-btn">Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <!-- MGX Fitness & Piscină -->
+        <a class="train-card" href="https://mgx-fitness-piscina.ro/" target="_blank" rel="noopener" aria-label="MGX Fitness & Piscină">
+          <img src="mgxfitness.png" alt="MGX Fitness & Piscină" loading="lazy">
+          <div class="train-card-grad"></div>
+          <div class="train-card-body">
+            <div class="train-top">
+              <span class="train-cat">Fitness</span>
+              <span class="train-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            </div>
+            <div>
+              <h3>MGX Fitness &amp; Piscină</h3>
+              <span class="train-underline"></span>
+            </div>
           </div>
         </a>
-        <div class="portfolio-info">
-          <h3>MGX Fitness &amp; Piscină</h3>
-          <p>Site de prezentare pentru un centru de fitness și piscină din Marginea, Suceava — sală modernă, piscină și lecții de înot.</p>
-          <div class="portfolio-tags">
-            <span class="tag">Fitness</span>
-            <span class="tag">Piscină</span>
-            <span class="tag">Înot</span>
-          </div>
-          <a href="https://mgx-fitness-piscina.ro/" target="_blank" rel="noopener" class="portfolio-link">
-            Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
 
-      <!-- Card 2: GDA Proiect -->
-      <div class="portfolio-card" data-stack="1">
-        <a href="https://gdaproiect.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0f0d08; display:block;">
-          <img src="gdaproiect.png" alt="GDA Proiect" style="width:100%; height:100%; object-fit:cover; display:block;">
-          <div class="portfolio-overlay">
-            <span class="portfolio-overlay-btn">Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <!-- GDA Proiect -->
+        <a class="train-card" href="https://gdaproiect.ro/" target="_blank" rel="noopener" aria-label="GDA Proiect">
+          <img src="gdaproiect.png" alt="GDA Proiect" loading="lazy">
+          <div class="train-card-grad"></div>
+          <div class="train-card-body">
+            <div class="train-top">
+              <span class="train-cat">Arhitectură</span>
+              <span class="train-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            </div>
+            <div>
+              <h3>GDA Proiect</h3>
+              <span class="train-underline"></span>
+            </div>
           </div>
         </a>
-        <div class="portfolio-info">
-          <h3>GDA Proiect</h3>
-          <p>Site de prezentare pentru un birou de arhitectură și amenajări peisagistice din Marginea, Suceava.</p>
-          <div class="portfolio-tags">
-            <span class="tag">Arhitectură</span>
-            <span class="tag">Proiectare</span>
-            <span class="tag">Peisagistică</span>
-          </div>
-          <a href="https://gdaproiect.ro/" target="_blank" rel="noopener" class="portfolio-link">
-            Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
 
-      <!-- Card 3: Auto Marnik Paint -->
-      <div class="portfolio-card" data-stack="2">
-        <a href="https://automarnik.ro/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0d0a0a; display:block;">
-          <img src="marnikpaint.png" alt="Auto Marnik Paint" style="width:100%; height:100%; object-fit:cover; display:block;">
-          <div class="portfolio-overlay">
-            <span class="portfolio-overlay-btn">Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <!-- Auto Marnik Paint -->
+        <a class="train-card" href="https://automarnik.ro/" target="_blank" rel="noopener" aria-label="Auto Marnik Paint">
+          <img src="marnikpaint.png" alt="Auto Marnik Paint" loading="lazy">
+          <div class="train-card-grad"></div>
+          <div class="train-card-body">
+            <div class="train-top">
+              <span class="train-cat">Auto</span>
+              <span class="train-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            </div>
+            <div>
+              <h3>Auto Marnik Paint</h3>
+              <span class="train-underline"></span>
+            </div>
           </div>
         </a>
-        <div class="portfolio-info">
-          <h3>Auto Marnik Paint</h3>
-          <p>Site de prezentare pentru o firmă de vopsitorie și tinichigerie auto cu 15 ani de experiență.</p>
-          <div class="portfolio-tags">
-            <span class="tag">Auto</span>
-            <span class="tag">Vopsitorie</span>
-            <span class="tag">Tinichigerie</span>
-          </div>
-          <a href="https://automarnik.ro/" target="_blank" rel="noopener" class="portfolio-link">
-            Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
 
-      <!-- Card 4: TrueAlin Production -->
-      <div class="portfolio-card" data-stack="3">
-        <a href="https://true-alin.web.app/" target="_blank" rel="noopener" class="portfolio-thumb" style="background: #0a0a0a; display:block;">
-          <img src="truealin.jpg" alt="TrueAlin Production" style="width:100%; height:100%; object-fit:cover; display:block;">
-          <div class="portfolio-overlay">
-            <span class="portfolio-overlay-btn">Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <!-- TrueAlin Production -->
+        <a class="train-card" href="https://true-alin.web.app/" target="_blank" rel="noopener" aria-label="TrueAlin Production">
+          <img src="truealin.jpg" alt="TrueAlin Production" loading="lazy">
+          <div class="train-card-grad"></div>
+          <div class="train-card-body">
+            <div class="train-top">
+              <span class="train-cat">Fotografie</span>
+              <span class="train-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            </div>
+            <div>
+              <h3>TrueAlin Production</h3>
+              <span class="train-underline"></span>
+            </div>
           </div>
         </a>
-        <div class="portfolio-info">
-          <h3>TrueAlin Production</h3>
-          <p>Site de prezentare pentru un fotograf specializat în lifestyle exclusivist și mașini de lux.</p>
-          <div class="portfolio-tags">
-            <span class="tag">Fotografie</span>
-            <span class="tag">Lifestyle</span>
-            <span class="tag">Auto</span>
-          </div>
-          <a href="https://true-alin.web.app/" target="_blank" rel="noopener" class="portfolio-link">
-            Vezi site-ul <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
 
-      <div class="carousel-nav">
-        <div class="carousel-dots">
-          <span class="carousel-dot active" data-idx="0"></span>
-          <span class="carousel-dot" data-idx="1"></span>
-          <span class="carousel-dot" data-idx="2"></span>
-          <span class="carousel-dot" data-idx="3"></span>
-        </div>
-        <button class="carousel-next-btn" id="portfolioNext">Următorul →</button>
       </div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALE -->
-<section class="section section-darker" id="testimoniale">
+<section class="section section-dark" id="testimoniale">
   <div class="container">
     <div class="section-header reveal">
       <h2>Ce Spun <span class="accent">Clienții</span></h2>
@@ -1392,7 +1384,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 </section>
 
 <!-- PRETURI -->
-<section class="section section-dark" id="preturi">
+<section class="section section-light section-light-alt" id="preturi">
   <div class="container">
     <div class="section-header reveal">
       <h2>Un Singur <span class="accent">Abonament</span></h2>
@@ -1711,25 +1703,6 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
     localStorage.setItem('cookie_accepted', '1');
   });
 
-  // ===== PIXEL PARTICLES =====
-  function createPixels(containerId, count) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    const colors = ['#38bdf8', '#4ade80', '#818cf8'];
-    for (let i = 0; i < count; i++) {
-      const pixel = document.createElement('div');
-      pixel.className = 'pixel';
-      pixel.style.left = Math.random() * 100 + '%';
-      pixel.style.background = colors[Math.floor(Math.random() * colors.length)];
-      pixel.style.animationDuration = (8 + Math.random() * 12) + 's';
-      pixel.style.animationDelay = (Math.random() * 10) + 's';
-      container.appendChild(pixel);
-    }
-  }
-  createPixels('particles1', 20);
-  createPixels('particles2', 20);
-  createPixels('particles3', 15);
-
   // ===== MAGNETIC BUTTONS =====
   if (window.matchMedia('(hover: hover)').matches) {
     document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
@@ -1771,61 +1744,64 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 
 <script>
 (function() {
-  const cards = Array.from(document.querySelectorAll('.portfolio-card'));
-  const dots = Array.from(document.querySelectorAll('.carousel-dot'));
-  const nextBtn = document.getElementById('portfolioNext');
-  let current = 0;
-  let animating = false;
+  // Bandă continuă „efect de tren": cardurile curg orizontal în buclă infinită.
+  const track = document.getElementById('trainTrack');
+  if (!track) return;
 
-  function updateStack() {
-    cards.forEach((card, i) => {
-      const pos = (i - current + cards.length) % cards.length;
-      card.setAttribute('data-stack', pos);
-    });
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === current);
-    });
+  const viewport = track.parentElement;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Pe touch (fără hover) sau la reduced-motion: banda devine scrollabilă cu
+  // degetul (swipe), fără mișcare automată.
+  const swipeMode = reduced || window.matchMedia('(hover: none)').matches;
+  if (swipeMode) {
+    viewport.classList.add('train-swipe');
+    return;
   }
 
-  function next() {
-    if (animating) return;
-    animating = true;
-    const frontCard = cards[current];
-    frontCard.classList.add('exiting');
-    setTimeout(() => {
-      frontCard.classList.remove('exiting');
-      current = (current + 1) % cards.length;
-      updateStack();
-      animating = false;
-    }, 520);
+  const originals = Array.from(track.children);
+  if (!originals.length) return;
+
+  // Viteza: pixeli/secundă (constantă indiferent de numărul de carduri).
+  const SPEED = 55;
+
+  let anim = null;
+
+  function build() {
+    if (anim) { anim.cancel(); anim = null; }
+    // Șterge clonele vechi, păstrează originalele.
+    track.querySelectorAll('[data-clone]').forEach(el => el.remove());
+
+    // Măsoară lățimea unui set (carduri + spații) ca bucla să fie fără cusur.
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    let setWidth = 0;
+    originals.forEach(el => { setWidth += el.getBoundingClientRect().width; });
+    setWidth += gap * originals.length; // include spațiul dintre seturi
+
+    // Dublează cardurile ca să existe mereu conținut care „intră" din dreapta.
+    originals.forEach(el => {
+      const c = el.cloneNode(true);
+      c.setAttribute('data-clone', '');
+      c.setAttribute('aria-hidden', 'true');
+      c.setAttribute('tabindex', '-1');
+      track.appendChild(c);
+    });
+
+    // Animație pe compositor (transform), viteză constantă, buclă infinită.
+    anim = track.animate(
+      [{ transform: 'translateX(0)' }, { transform: `translateX(${-setWidth}px)` }],
+      { duration: (setWidth / SPEED) * 1000, iterations: Infinity, easing: 'linear' }
+    );
   }
 
-  nextBtn.addEventListener('click', next);
+  build();
 
-  cards.forEach(card => {
-    card.addEventListener('click', function(e) {
-      if (this.getAttribute('data-stack') === '0' && !e.target.closest('a')) next();
-    });
-  });
+  // Pauză la hover (WAAPI se controlează din JS).
+  viewport.addEventListener('mouseenter', () => anim && anim.pause());
+  viewport.addEventListener('mouseleave', () => anim && anim.play());
 
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      if (animating || i === current) return;
-      animating = true;
-      const frontCard = cards[current];
-      frontCard.classList.add('exiting');
-      setTimeout(() => {
-        frontCard.classList.remove('exiting');
-        current = i;
-        updateStack();
-        animating = false;
-      }, 520);
-    });
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') next();
-  });
+  // Recalculează la resize (lățimile cardurilor se pot schimba pe mobil).
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 150); });
 })();
 </script>
 

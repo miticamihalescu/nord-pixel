@@ -1,0 +1,9 @@
+# Sistem
+.DS_Store
+
+# Unelte locale
+.claude/
+
+# Fișiere mari / neutilizate pe site
+Hitem3d.glb
+mgx photo/
